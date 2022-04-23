@@ -1,9 +1,11 @@
 import './index.scss'
 import DropDownMenu from "../DropDownMenu";
 import {SubActions, SubMenu} from "../../constants";
+import {getCitiesName} from "../../constants/cities";
 
 
-const VacancyItem = ({title}) => {
+const VacancyItem = ({id, city, title, price, priceComment }) => {
+    console.log(price, 'price')
     return(
         <div className='vacancy-list-item'>
             <h3 className="vacancy-title">
@@ -12,18 +14,32 @@ const VacancyItem = ({title}) => {
             <div className="vacancy-details">
                 <div className="vacancy-salary-details">
                     <div className="vacancy-salary">
-                        5 500 – 11 500 грн
+                        {Object.keys(price).length ?
+                            <>
+                                {price.from} - {price.to}
+                            </>
+                            :
+                            <>
+                                {price}
+                            </>
+                        }
                     </div>
-                    <div className="vacancy-currency">
-                          · Paid in USD
-                    </div>
+                    {priceComment &&
+                        <div className="vacancy-currency">
+                            · {priceComment}
+                        </div>
+                    }
                 </div>
                 <div className="vacancy-address">
-                    Киев, вулиця Академіка Бутлерова, 1
+                     {getCitiesName(city)?.name}
                 </div>
             </div>
             <div className="list-item-actions">
-                <DropDownMenu links={SubMenu} actions={SubActions} />
+                <DropDownMenu
+                    id={id}
+                    links={SubMenu}
+                    actions={SubActions}
+                />
             </div>
         </div>
     )

@@ -3,14 +3,78 @@ import Page from "../../layouts/Page";
 import Button from "../../components/Button";
 import React from "../VacanciesView";
 import InputField from "../../components/InputField";
-import {useState} from "react";
+import {useEffect, useState} from "react";
+import axios from "axios";
+import {API_URL} from "../../constants";
+import { useFormik } from "formik";
+import {rangeVacancySchema, vacancySchema} from "../../schemas";
 
 
 const Vacancy = () => {
     const { id } = useParams()
     const navigate = useNavigate()
     const [priceType, setPriceType] = useState('1')
+    const [item, setItem] = useState([])
 
+    const createItem = async (entity, data ) => {
+        const { status } = await axios.post(
+            `${API_URL}${entity}`, data
+        );
+        if (status === 200) {
+            navigate('/');
+        }
+    };
+    const updateItem = async (entity, data, id) => {
+        await axios.put(`${API_URL}${entity}/${id}`, data);
+    };
+
+    const {
+        values,
+        handleChange,
+        handleSubmit,
+        errors,
+        setFieldValue,
+    } = useFormik({
+        initialValues: {
+            name: '',
+            city: '',
+            price: priceType === '0' ? {
+                to: '',
+                from: ''
+            } : '',
+            priceComment: '',
+            cityAddres: ''
+        },
+        enableReinitialize: true,
+        validationSchema: priceType === '0' ?  rangeVacancySchema : vacancySchema(priceType) ,
+        onSubmit: async (values) => {
+
+
+            const requestOptions = {
+                vacancy: values
+            };
+
+            try {
+                id
+                    ? await updateItem('vacancy',requestOptions,  id)
+                    : await createItem('vacancy', requestOptions);
+            } catch (err) {
+                console.log(err.response);
+            }
+        },
+    });
+
+
+    const getItem = async (entity, id) => {
+        const { data } = await axios.get(`${API_URL}${entity}/${id}`);
+        if (data) {
+            setItem(data);
+        }
+    };
+
+    useEffect(() => {
+        id && getItem('vacancy', id) /// not working > server do not have  endpoint to vacancy by id
+    }, [])
 
     return(
         <Page
@@ -18,6 +82,7 @@ const Vacancy = () => {
             titleTag='h1'
             titleSize='large'
             title={id ? 'Редактировать вакансию' : 'Создать вакансию'}
+            submitForm={handleSubmit}
             actionButtonBottom
             actionButton={
                 <Button
@@ -39,7 +104,9 @@ const Vacancy = () => {
             style={{
                 maxWidth: '690px',
                 width: '100%',
-                background: '#E5E5E5'
+                background: '#F4F5F6',
+                border: '1px solid #E9EBED',
+                padding:'30px 30px 20px 30px'
             }}
         >
             <div className="vacancy-view-content">
@@ -53,6 +120,9 @@ const Vacancy = () => {
                                 name='name'
                                 fullWidth
                                 placeholder='Введите название должности'
+                                value={values.name}
+                                handleChange={handleChange}
+                                error={errors.name}
                             />
                         </div>
                     </div>
@@ -69,14 +139,18 @@ const Vacancy = () => {
                                 style={{
                                     width: '250px'
                                 }}
+                                value={values.city}
+                                handleChange={handleChange}
+                                error={errors.city}
                             />
                         </div>
                         <div className="column-field">
                             <InputField
-                                required
                                 label='Адрес работы'
-                                name='city'
+                                name='cityAddres'
                                 placeholder='Улица и дом'
+                                value={values.cityAddres}
+                                handleChange={handleChange}
                             />
                         </div>
                     </div>
@@ -100,12 +174,16 @@ const Vacancy = () => {
                                     <InputField
                                         range
                                         required
+                                        error={errors?.price?.to || errors?.price?.from}
                                         name='price'
-                                        namePriceTo='priceTo'
-                                        namePriceFrom='priceFrom'
+                                        namePriceTo='price.to'
+                                        namePriceFrom='price.from'
                                         placeholderTo='До'
                                         placeholderFrom='От'
                                         placeholder='Сумма'
+                                        valueFrom={values.price.from}
+                                        valueTo={values.price.to}
+                                        handleChangeRange={setFieldValue}
                                         style={{
                                             width: '100px'
                                         }}
@@ -125,14 +203,18 @@ const Vacancy = () => {
                             {priceType === '1' &&
                                 <div className='flex-field'>
                                     <InputField
-                                        required
+                                        required={priceType === '1'}
                                         name='price'
                                         placeholder='Сумма'
                                         style={{
                                             width: '100px'
                                         }}
+                                        handleChange={handleChange}
+                                        error={errors.price}
+                                        value={values.price}
+                                        secondLabel='грн в месяц'
                                     />
-                                   <span>грн в месяц</span>
+
                                 </div>
 
                             }
@@ -148,10 +230,11 @@ const Vacancy = () => {
                             </label>
                             <div className="column-field">
                                 <InputField
-                                    required
                                     label='Комментарий к зарплате'
                                     name='priceComment'
                                     placeholder='Введите комментарий'
+                                    value={values.priceComment}
+                                    handleChange={handleChange}
                                 />
                             </div>
                         </div>

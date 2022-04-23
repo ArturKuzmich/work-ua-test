@@ -1,9 +1,10 @@
 import Title from "../../components/Title";
 import './index.scss'
 
-const Page = ({style, pageBg = '#FFFFFF', title, actionCancel = null, actionButton = null, actionButtonTop = false, actionButtonBottom = false, titleSize, titleIcon, children, titleTag, Tag = 'div' }) => {
+const Page = ({submitForm, style, pageBg = '#FFFFFF', title, actionCancel = null, actionButton = null, actionButtonTop = false, actionButtonBottom = false, titleSize, titleIcon, children, titleTag, Tag = 'div' }) => {
     return(
         <Tag
+            onSubmit={submitForm ? submitForm : null}
             className='page-view'
             style={{
                 background: pageBg
@@ -20,6 +21,7 @@ const Page = ({style, pageBg = '#FFFFFF', title, actionCancel = null, actionButt
                 </div>
                 <div
                     className="inner-content"
+                    style={style}
                 >
                     {children}
                     {actionButtonBottom && (

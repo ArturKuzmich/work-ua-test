@@ -30,6 +30,14 @@
       color: #ABB2BA;
     }
   }
+  span{
+    font-weight: 400;
+    font-size: 17px;
+    line-height: 24px;
+    color: #2C3F52;
+    margin: 0 0 0 5px;
+    white-space: nowrap;
+  }
   &.range-fields{
     display: flex;
     align-items: center;
@@ -46,6 +54,7 @@
       input{
         border: none!important;
       }
+
       svg{
         margin: 0 0 0 5px;
         cursor: pointer;

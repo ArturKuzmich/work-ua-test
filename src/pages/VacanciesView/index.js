@@ -3,10 +3,24 @@ import Page from "../../layouts/Page";
 import React from ".";
 import Button from "../../components/Button";
 import VacancyItem from "../../components/VacancyItem";
+import axios from "axios";
+import {API_URL} from "../../constants";
+import {useEffect, useState} from "react";
 
 
 const VacanciesView = () => {
     const navigate = useNavigate()
+    const [vacanciesList, setVacanciesList] = useState([])
+
+    const getList = async (entity) => {
+        const { data } = await axios.get(`${API_URL}${entity}`);
+        if (data) {
+            setVacanciesList(data);
+        }
+    };
+    useEffect(() => {
+        getList('vacancies')
+    },[])
     return(
         <Page
             pageBg='#E5E5E5'
@@ -27,12 +41,19 @@ const VacanciesView = () => {
 
         >
             <div className="vacancies-list">
-                <VacancyItem
-                    title='Керівник департаменту маркетингових проєктів (Шевченківський район)'
-                />
-                <VacancyItem
-                    title='Бухгалтер з обліку'
-                />
+                {vacanciesList?.map(({id, city, name, price, priceComment}) => {
+                    console.log(Object.keys(price))
+                    return(
+                        <VacancyItem
+                            id={id}
+                            key={id}
+                            city={city}
+                            title={name}
+                            price={price}
+                            priceComment={priceComment}
+                        />
+                    )
+                })}
             </div>
         </Page>
     )
