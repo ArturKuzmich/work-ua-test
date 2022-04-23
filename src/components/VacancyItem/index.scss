@@ -2,6 +2,7 @@
   padding: 30px 30px 20px 30px;
   background: #FFFFFF;
   border-bottom: 1px solid #E9EBED;
+  position: relative;
   &:last-child{
     border: none;
     margin: 0 0 20px 0;
@@ -34,6 +35,32 @@
       font-size: 17px;
       line-height: 24px;
       color: #2C3F52;
+    }
+  }
+  .list-item-actions{
+    position: absolute;
+    right: 30px;
+    bottom: 30px;
+  }
+}
+
+@media (max-width: 680px){
+  .vacancy-list-item{
+    padding: 30px 20px 20px 20px;
+    .vacancy-title{
+      font-size: 19px;
+      line-height: 21px;
+    }
+    .vacancy-details{
+      .vacancy-salary-details{
+      }
+      .vacancy-address{
+
+      }
+    }
+    .list-item-actions{
+      top: 30px;
+      bottom: auto;
     }
   }
 }

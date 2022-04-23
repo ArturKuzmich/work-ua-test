@@ -9,6 +9,7 @@ const VacanciesView = () => {
     const navigate = useNavigate()
     return(
         <Page
+            pageBg='#E5E5E5'
             titleTag='h1'
             titleSize='small'
             title='Вакансии и отклики'
@@ -23,6 +24,7 @@ const VacanciesView = () => {
                     action={() => navigate('/vacancy/create')}
                 />
             }
+
         >
             <div className="vacancies-list">
                 <VacancyItem

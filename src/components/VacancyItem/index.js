@@ -1,4 +1,6 @@
 import './index.scss'
+import DropDownMenu from "../DropDownMenu";
+import {SubActions, SubMenu} from "../../constants";
 
 
 const VacancyItem = ({title}) => {
@@ -20,7 +22,9 @@ const VacancyItem = ({title}) => {
                     Киев, вулиця Академіка Бутлерова, 1
                 </div>
             </div>
-
+            <div className="list-item-actions">
+                <DropDownMenu links={SubMenu} actions={SubActions} />
+            </div>
         </div>
     )
 }
