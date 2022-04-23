@@ -8,9 +8,9 @@ const Page = ({title, actionCancel = null, actionButton = null, actionButtonTop 
                 <div className="inner-head">
                     <Title Tag={titleTag} icon={titleIcon} size={titleSize} text={title} />
                     {actionButtonTop && (
-                        <div>
+                        <>
                             {actionButton}
-                        </div>
+                        </>
                     )}
                 </div>
                 <div className="inner-content">
@@ -22,7 +22,7 @@ const Page = ({title, actionCancel = null, actionButton = null, actionButtonTop 
                         {actionCancel &&
                             <div className='action-cancel'>
                                 <span>
-
+                                    или
                                 </span>
                                 <div className='action'>
                                     {actionCancel}

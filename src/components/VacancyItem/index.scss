@@ -1,0 +1,39 @@
+.vacancy-list-item{
+  padding: 30px 30px 20px 30px;
+  background: #FFFFFF;
+  border-bottom: 1px solid #E9EBED;
+  &:last-child{
+    border: none;
+    margin: 0 0 20px 0;
+  }
+  .vacancy-title{
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 26px;
+    color: #0094DF;
+    width: 80%;
+  }
+  .vacancy-details{
+    .vacancy-salary-details{
+      font-weight: 700;
+      font-size: 17px;
+      line-height: 20px;
+      color: #2C3F52;
+      margin: 20px 0 10px 0;
+      display: flex;
+      align-items: center;
+      .vacancy-salary{
+      }
+      .vacancy-currency{
+        opacity: 0.8;
+        margin: 0 0 0 5px;
+      }
+    }
+    .vacancy-address{
+      font-weight: 400;
+      font-size: 17px;
+      line-height: 24px;
+      color: #2C3F52;
+    }
+  }
+}

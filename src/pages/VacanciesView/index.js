@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import Page from "../../layouts/Page";
 import React from ".";
 import Button from "../../components/Button";
+import VacancyItem from "../../components/VacancyItem";
 
 
 const VacanciesView = () => {
@@ -19,12 +20,18 @@ const VacanciesView = () => {
                     type="button"
                     label='Создать вакансию'
                     variant='lightGreen'
-                    style={{ width: "auto" }}
                     action={() => navigate('/vacancy/create')}
                 />
             }
         >
-            asd
+            <div className="vacancies-list">
+                <VacancyItem
+                    title='Керівник департаменту маркетингових проєктів (Шевченківський район)'
+                />
+                <VacancyItem
+                    title='Бухгалтер з обліку'
+                />
+            </div>
         </Page>
     )
 }
