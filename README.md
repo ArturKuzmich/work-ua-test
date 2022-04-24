@@ -10,5 +10,5 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
 ### `node start`
 
-Go to foldet src and in command line type  `node server.js`
+Go to folder "src' and in command line type  `node server.js`
 Its run local server in localhost:3001
