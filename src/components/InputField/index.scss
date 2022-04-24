@@ -61,6 +61,18 @@
       }
     }
   }
+  .field-list{
+    position: absolute;
+    left: 0;
+    z-index: 1;
+    background: #FFFFFF;
+    width: 100%;
+    option{
+      border-bottom: 1px solid #B6C9D6;
+      cursor: pointer;
+      padding: 7px 10px;
+    }
+  }
 }
 
 
@@ -70,4 +82,22 @@
   font-size: 17px;
   line-height: 24px;
   color: #FF3B30;
+}
+
+@media (max-width: 680px){
+  .field-wrapper{
+    input{
+      font-size: 14px;
+      line-height: 19px;
+      height: 35px;
+      &::placeholder{
+        font-size: 16px;
+        line-height: 21px;
+      }
+    }
+  }
+  .field-error{
+    font-size: 12px;
+    line-height: 16px;
+  }
 }

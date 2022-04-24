@@ -1,26 +1,22 @@
 import { useNavigate } from "react-router-dom";
 import Page from "../../layouts/Page";
-import React from ".";
 import Button from "../../components/Button";
 import VacancyItem from "../../components/VacancyItem";
-import axios from "axios";
-import {API_URL} from "../../constants";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState, useContext} from "react";
+import {DataContext} from "../../context/context";
+import NotFound from "../../components/NotFound";
 
 
 const VacanciesView = () => {
     const navigate = useNavigate()
+    const { getList, store } = useContext(DataContext);
     const [vacanciesList, setVacanciesList] = useState([])
 
-    const getList = async (entity) => {
-        const { data } = await axios.get(`${API_URL}${entity}`);
-        if (data) {
-            setVacanciesList(data);
-        }
-    };
+
     useEffect(() => {
         getList('vacancies')
     },[])
+
     return(
         <Page
             pageBg='#E5E5E5'
@@ -41,7 +37,7 @@ const VacanciesView = () => {
 
         >
             <div className="vacancies-list">
-                {vacanciesList?.map(({id, city, name, price, priceComment}) => {
+                {store.vacancies?.map(({id, city, name, price, priceComment}) => {
                     console.log(Object.keys(price))
                     return(
                         <VacancyItem
@@ -55,6 +51,9 @@ const VacanciesView = () => {
                     )
                 })}
             </div>
+            {!store.vacancies &&
+                <NotFound text='Нет вакансий.' />
+            }
         </Page>
     )
 }

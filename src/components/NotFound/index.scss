@@ -1,0 +1,17 @@
+.is-empty-list{
+  border: 1px solid #E9EBED;
+  box-sizing: border-box;
+  padding: 20px 30px;
+  font-weight: 700;
+  font-size: 17px;
+  line-height: 20px;
+  color: #2C3F52;
+  background: #FFFFFF;
+  margin: 0 0 20px 0;
+}
+
+@media (max-width: 680px){
+  .is-empty-list{
+    padding: 20px;
+  }
+}

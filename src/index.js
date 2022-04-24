@@ -4,12 +4,15 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from "react-router-dom";
 import './assets/styles/clear.scss'
+import {DataState} from "./context/state";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
       <BrowserRouter>
-          <App />
+          <DataState>
+              <App />
+          </DataState>
       </BrowserRouter>
   </React.StrictMode>
 );

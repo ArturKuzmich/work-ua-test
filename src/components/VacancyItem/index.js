@@ -5,7 +5,9 @@ import {getCitiesName} from "../../constants/cities";
 
 
 const VacancyItem = ({id, city, title, price, priceComment }) => {
-    console.log(price, 'price')
+
+    const computedPrice = typeof price === "string"  ?  price : `${price.from + ' - ' + price.to}`
+
     return(
         <div className='vacancy-list-item'>
             <h3 className="vacancy-title">
@@ -13,17 +15,11 @@ const VacancyItem = ({id, city, title, price, priceComment }) => {
             </h3>
             <div className="vacancy-details">
                 <div className="vacancy-salary-details">
-                    <div className="vacancy-salary">
-                        {Object.keys(price).length ?
-                            <>
-                                {price.from} - {price.to}
-                            </>
-                            :
-                            <>
-                                {price}
-                            </>
-                        }
-                    </div>
+                    {computedPrice &&
+                        <div className="vacancy-salary">
+                            {computedPrice} грн
+                        </div>
+                    }
                     {priceComment &&
                         <div className="vacancy-currency">
                             · {priceComment}

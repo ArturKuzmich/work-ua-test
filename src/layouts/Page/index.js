@@ -1,7 +1,23 @@
 import Title from "../../components/Title";
 import './index.scss'
+import ErrorContainer from "../../components/ErrorContainer";
 
-const Page = ({submitForm, style, pageBg = '#FFFFFF', title, actionCancel = null, actionButton = null, actionButtonTop = false, actionButtonBottom = false, titleSize, titleIcon, children, titleTag, Tag = 'div' }) => {
+const Page = ({errorTitle, errorDesc, error, submitForm, style, pageBg = '#FFFFFF', title, actionCancel = null, actionButton = null, actionButtonTop = false, actionButtonBottom = false, titleSize, titleIcon, children, titleTag, Tag = 'div' }) => {
+
+
+    const size = (val) =>
+        // Если val массив
+        Array.isArray(val)
+            ? val.length
+            : // Если val объект
+            val && typeof val === "object"
+                ? val.size || val.length || Object.keys(val).length
+                : // Если val строка
+                typeof val === "string"
+                    ? new Blob([val]).size
+                    : 0;
+
+
     return(
         <Tag
             onSubmit={submitForm ? submitForm : null}
@@ -19,6 +35,9 @@ const Page = ({submitForm, style, pageBg = '#FFFFFF', title, actionCancel = null
                         </>
                     )}
                 </div>
+                {size(error) > 0 &&
+                    <ErrorContainer errorTitle={errorTitle} errorDesc={errorDesc}/>
+                }
                 <div
                     className="inner-content"
                     style={style}

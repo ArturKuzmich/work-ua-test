@@ -64,7 +64,7 @@ const InputField = ({
                     >
                         {label &&
                             <label htmlFor={name}>
-                                {label}{required && <span>*</span>}:
+                                {label}{required &&<span>*</span>}:
                             </label>
                         }
                         <div
